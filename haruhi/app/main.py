@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 
 from static import index
 
-from service.UserService import UserService
+import service.UserService as UserService
 
 app = FastAPI()
 

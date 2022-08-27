@@ -6,5 +6,17 @@ services:
         ports:
             - "8111:80"
         volumes:
-         - ./haruhi:/app
+         - ./haruhi/app:/app
         tty: true
+        env_file: ./haruhi/.env
+    yui:
+        build:
+            context: ./yui
+            dockerfile: Dockerfile
+        restart: always
+        env_file: ./yui/.env
+        hostname: yui
+        volumes:
+         - db:/var/lib/mysql
+volumes:
+    db:
