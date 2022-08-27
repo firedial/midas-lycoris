@@ -19,5 +19,13 @@ services:
         hostname: yui
         volumes:
          - db:/var/lib/mysql
+    rikka:
+        build: ./rikka
+        restart: always
+        env_file: ./rikka/.env
+        volumes:
+         - ./rikka:/home/root
+        privileged: true
+        tty: true
 volumes:
     db:
