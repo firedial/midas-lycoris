@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+    haruhi:
+        build: ./haruhi
+        env_file: ./haruhi/.env
+        ports:
+            - "8111:80"
+        volumes:
+         - ./haruhi:/app
+        tty: true
