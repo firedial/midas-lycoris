@@ -9,6 +9,7 @@ services:
          - ./haruhi/app:/app
         tty: true
         env_file: ./haruhi/.env
+        command: uvicorn main:app --reload --host "0.0.0.0" --port "80"
     yui:
         build:
             context: ./yui
