@@ -9,9 +9,9 @@
 環境変数のファイルのコピーと値の修正
 
 ```
-cp ./yui/.env.example
-cp ./haruhi/.env.example
-cp ./rikka/.env.example
+cp ./yui/.env.example ./yui/.env
+cp ./haruhi/.env.example ./haruhi/.env
+cp ./rikka/.env.example ./rikka/.env
 ```
 
 ### コンテナ起動
