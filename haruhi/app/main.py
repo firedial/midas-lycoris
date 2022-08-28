@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import PlainTextResponse
+from sqlalchemy.orm.exc import NoResultFound
 
 from static import index
 from service.ElementService import ElementService, Element
@@ -16,6 +17,11 @@ app = FastAPI()
 @app.exception_handler(RequestValidationError)
 def validation_exception_handler(request, exc):
     return PlainTextResponse(str(exc), status_code=400)
+
+
+@app.exception_handler(NoResultFound)
+def no_result_fount_exception_handler(request, exc):
+    return PlainTextResponse(str(exc), status_code=404)
 
 
 @app.exception_handler(Exception)
