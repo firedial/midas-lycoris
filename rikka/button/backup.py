@@ -17,7 +17,7 @@ GPIO.setup(24, GPIO.OUT)
 GPIO.setup(27, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 # バックアップコマンド
-command = ['docker', 'exec', 'midas-tari_rikka_1', '/home/root/backup/main.sh']
+command = ['docker', 'exec', 'midas-lycoris_rikka_1', '/home/root/backup/main.sh']
 
 try:
     while True:
