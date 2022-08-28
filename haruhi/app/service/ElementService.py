@@ -1,6 +1,10 @@
 from database.database import SessionLocal
 from database.model import KindElement, PurposeElement, PlaceElement
 
+KIND_ELEMENT_MOVE_ID = 1
+PURPOSE_ELEMENT_MOVE_ID = 1
+PLACE_ELEMENT_MOVE_ID = 1
+
 
 class ElementService:
     def __init__(self, elementName: str):

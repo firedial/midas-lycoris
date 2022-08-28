@@ -6,6 +6,7 @@ from static import index
 from service.ElementService import ElementService
 from service.CategoryService import CategoryService
 from service.BalanceService import BalanceService
+from service.MoveService import MoveService, Move
 
 
 class Element(BaseModel):
@@ -127,3 +128,34 @@ def putBalance(id: int, balance: Balance):
 def deleteBalance(id: int):
     balanceService = BalanceService()
     return balanceService.deleteBalance(id)
+
+
+# move
+@app.get("/api/v1/{name}/move")
+def getMoves(name: str):
+    moveService = MoveService(name)
+    return moveService.getMoves()
+
+
+@app.get("/api/v1/{name}/move/{id}")
+def getMoveById(name: str, id: int):
+    moveService = MoveService(name)
+    return moveService.getMoveById(id)
+
+
+@app.post("/api/v1/{name}/move")
+def postMove(name: str, move: Move):
+    moveService = MoveService(name)
+    return moveService.postMove(move)
+
+
+@app.put("/api/v1/{name}/move/{id}")
+def putMove(id: int, name: str, move: Move):
+    moveService = MoveService(name)
+    return moveService.putMove(id, move)
+
+
+@app.delete("/api/v1/{name}/move/{id}")
+def deleteMove(name: str, id: int):
+    moveService = MoveService(name)
+    return moveService.deleteMove(id)
