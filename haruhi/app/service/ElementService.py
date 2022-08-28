@@ -34,9 +34,13 @@ class ElementService:
         self.db.commit()
 
     def putElement(self, id: int, elementValue):
-        element = self.db.query(self.Element).filter(self.Element.id == id)
+        element = self.db.query(self.Element).filter(self.Element.id == id).first()
         element.name = elementValue.name
         element.description = elementValue.description
         element.category_id = elementValue.category_id
 
+        self.db.commit()
+
+    def deleteElement(self, id: int):
+        self.db.query(self.Element).filter(self.Element.id == id).delete()
         self.db.commit()

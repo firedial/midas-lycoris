@@ -42,3 +42,9 @@ def postElement(name: str, element: Element):
 def putElement(name: str, id: int, element: Element):
     elementService = ElementService(name)
     return elementService.putElement(id, element)
+
+
+@app.delete("/api/v1/{name}/element/{id}")
+def deleteElement(name: str, id: int):
+    elementService = ElementService(name)
+    return elementService.deleteElement(id)
