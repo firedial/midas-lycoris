@@ -22,7 +22,7 @@ class KindElement(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String(20), unique=True, index=True, nullable=False)
     description = Column(String(20), index=True, nullable=False)
-    catecory_id = Column(Integer, ForeignKey("m_kind_category.id"), index=True, nullable=False)
+    category_id = Column(Integer, ForeignKey("m_kind_category.id"), index=True, nullable=False)
     created_at = Column(DateTime)
     updated_at = Column(DateTime)
 
