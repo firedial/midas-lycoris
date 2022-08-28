@@ -1,29 +1,32 @@
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, DateTime
 from sqlalchemy.orm import relationship
 
 from database.database import Base, engine
 
 
-class User(Base):
-    __tablename__ = "users"
+class KindCategory(Base):
+    __tablename__ = "m_kind_category"
 
-    id = Column(Integer, primary_key=True, index=True)
-    email = Column(String(30), index=True)
-    hashed_password = Column(String(30))
-    is_active = Column(Boolean, default=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    name = Column(String(20), unique=True, index=True, nullable=False)
+    description = Column(String(20), index=True, nullable=False)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
 
-    items = relationship("Item", back_populates="owner")
+    element = relationship("KindElement", uselist=True)
 
 
-class Item(Base):
-    __tablename__ = "items"
+class KindElement(Base):
+    __tablename__ = "m_kind_element"
 
-    id = Column(Integer, primary_key=True, index=True)
-    title = Column(String(39), index=True)
-    description = Column(String(29), index=True)
-    owner_id = Column(Integer, ForeignKey("users.id"))
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    name = Column(String(20), unique=True, index=True, nullable=False)
+    description = Column(String(20), index=True, nullable=False)
+    catecory_id = Column(Integer, ForeignKey("m_kind_category.id"), index=True, nullable=False)
+    created_at = Column(DateTime)
+    updated_at = Column(DateTime)
 
-    owner = relationship("User", back_populates="items")
+    category = relationship("KindCategory", uselist=False)
 
 
 Base.metadata.create_all(bind=engine)

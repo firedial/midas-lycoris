@@ -3,7 +3,7 @@ from fastapi.responses import HTMLResponse
 
 from static import index
 
-import service.UserService as UserService
+import service.CategoryService as CategoryService
 
 app = FastAPI()
 
@@ -22,5 +22,5 @@ def read_root():
 
 @app.get("/api/items/{item_id}")
 def read_item(item_id: int, q: str = None):
-    return UserService.getUser()
+    return CategoryService.getCategory()
     # return {"item_id": item_id, "q": q}
