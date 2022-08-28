@@ -32,7 +32,7 @@ class MoveService:
         return list(map(self.balanceToMove, balances))
 
     def getMoveById(self, id: int):
-        balanceBefore = self.db.query(Balance).filter(Balance.id == id).one()
+        balanceBefore = self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id == KIND_ELEMENT_MOVE_ID, Balance.amount < 0).one()
 
         return self.balanceToMove(balanceBefore)
 
@@ -68,8 +68,8 @@ class MoveService:
         self.db.commit()
 
     def putMove(self, id: int, move):
-        balanceBefore = self.db.query(Balance).filter(Balance.id == id).first()
-        balanceAfter = self.db.query(Balance).filter(Balance.id == id + 1).first()
+        balanceBefore = self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id == KIND_ELEMENT_MOVE_ID, Balance.amount < 0).one()
+        balanceAfter = self.db.query(Balance).filter(Balance.id == id + 1, Balance.kind_element_id == KIND_ELEMENT_MOVE_ID, Balance.amount > 0).one()
 
         balanceBefore.amount = (-1) * move.amount
         balanceBefore.item = move.item
@@ -98,8 +98,8 @@ class MoveService:
         self.db.commit()
 
     def deleteMove(self, id: int):
-        self.db.query(Balance).filter(Balance.id == id).delete()
-        self.db.query(Balance).filter(Balance.id == id + 1).delete()
+        self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id == KIND_ELEMENT_MOVE_ID, Balance.amount < 0).delete()
+        self.db.query(Balance).filter(Balance.id == id + 1, Balance.kind_element_id == KIND_ELEMENT_MOVE_ID, Balance.amount > 0).delete()
         self.db.commit()
 
     def balanceToMove(self, before: Balance) -> Move:
