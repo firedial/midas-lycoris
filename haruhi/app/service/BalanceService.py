@@ -40,7 +40,7 @@ class BalanceService:
         self.db.commit()
 
     def putBalance(self, id: int, balanceValue: BalanceInput):
-        balance = self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id != KIND_ELEMENT_MOVE_ID).first()
+        balance = self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id != KIND_ELEMENT_MOVE_ID).one()
         balance.amount = balanceValue.amount
         balance.item = balanceValue.item
         balance.kind_element_id = balanceValue.kind_element_id

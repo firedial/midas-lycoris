@@ -40,7 +40,7 @@ class CategoryService:
         self.db.commit()
 
     def putCategory(self, id: int, categoryValue: Category):
-        Category = self.db.query(self.Category).filter(self.Category.id == id).first()
+        Category = self.db.query(self.Category).filter(self.Category.id == id).one()
         Category.name = categoryValue.name
         Category.description = categoryValue.description
 

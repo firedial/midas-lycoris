@@ -46,7 +46,7 @@ class ElementService:
         self.db.commit()
 
     def putElement(self, id: int, elementValue: Element):
-        element = self.db.query(self.Element).filter(self.Element.id == id).first()
+        element = self.db.query(self.Element).filter(self.Element.id == id).one()
         element.name = elementValue.name
         element.description = elementValue.description
         element.category_id = elementValue.category_id
