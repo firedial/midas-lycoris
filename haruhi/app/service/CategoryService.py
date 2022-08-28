@@ -1,19 +1,44 @@
 from database.database import SessionLocal
-from database.model import KindCategory
+from database.model import KindCategory, PurposeCategory, PlaceCategory
 
 
-def getCategory():
-    db = SessionLocal()
+class CategoryService:
+    def __init__(self, categoryName: str):
+        self.db = SessionLocal()
+        match categoryName:
+            case "kind":
+                self.Category = KindCategory
+            case "purpose":
+                self.Category = PurposeCategory
+            case "place":
+                self.Category = PlaceCategory
+            case _:
+                raise Exception("not support category name: " + categoryName)
 
-    kindCategory = KindCategory()
-    kindCategory.name = "hoge"
-    kindCategory.description = "hoge"
+    def __del__(self):
+        self.db.close()
 
-    try:
-        db.add(kindCategory)
-        db.commit()
-    except Exception:
-        print("error")
+    def getCategories(self):
+        return self.db.query(self.Category).all()
 
-    users = db.query(KindCategory).all()
-    return users[0]
+    def getCategory(self, id: int):
+        return self.db.query(self.Category).filter(self.Category.id == id).one()
+
+    def postCategory(self, categoryValue):
+        Category = self.Category()
+        Category.name = categoryValue.name
+        Category.description = categoryValue.description
+
+        self.db.add(Category)
+        self.db.commit()
+
+    def putCategory(self, id: int, categoryValue):
+        Category = self.db.query(self.Category).filter(self.Category.id == id).first()
+        Category.name = categoryValue.name
+        Category.description = categoryValue.description
+
+        self.db.commit()
+
+    def deleteCategory(self, id: int):
+        self.db.query(self.Category).filter(self.Category.id == id).delete()
+        self.db.commit()
