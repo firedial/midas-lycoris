@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 from database.database import SessionLocal
 from database.model import Balance
+from service.ElementService import KIND_ELEMENT_MOVE_ID
 
 
 class BalanceInput(BaseModel):
@@ -21,10 +22,10 @@ class BalanceService:
         self.db.close()
 
     def getBalances(self):
-        return self.db.query(Balance).all()
+        return self.db.query(Balance).filter(Balance.kind_element_id != KIND_ELEMENT_MOVE_ID).all()
 
     def getBalanceById(self, id: int):
-        return self.db.query(Balance).filter(Balance.id == id).one()
+        return self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id == KIND_ELEMENT_MOVE_ID).one()
 
     def postBalance(self, balanceValue: BalanceInput):
         balance = Balance()
@@ -39,7 +40,7 @@ class BalanceService:
         self.db.commit()
 
     def putBalance(self, id: int, balanceValue: BalanceInput):
-        balance = self.db.query(Balance).filter(Balance.id == id).first()
+        balance = self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id != KIND_ELEMENT_MOVE_ID).first()
         balance.amount = balanceValue.amount
         balance.item = balanceValue.item
         balance.kind_element_id = balanceValue.kind_element_id
@@ -50,5 +51,5 @@ class BalanceService:
         self.db.commit()
 
     def deleteBalance(self, id: int):
-        self.db.query(Balance).filter(Balance.id == id).delete()
+        self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id != KIND_ELEMENT_MOVE_ID).delete()
         self.db.commit()
