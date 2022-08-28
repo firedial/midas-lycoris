@@ -13,4 +13,14 @@ SQLALCHEMY_DATABASE_URL = "mysql://{user}:{password}@{host}/{db}?charset=utf8".f
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-Base = declarative_base()
+
+class Setting(object):
+    __table_args__ = {
+        "mysql_default_charset": "utf8mb4",
+        "mysql_collate": "utf8mb4_bin",
+        "mysql_engine": "InnoDB",
+        "mysql_row_format": "DYNAMIC",
+    }
+
+
+Base = declarative_base(cls=Setting)
