@@ -1,32 +1,11 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
 
 from static import index
-from service.ElementService import ElementService
-from service.CategoryService import CategoryService
-from service.BalanceService import BalanceService
+from service.ElementService import ElementService, Element
+from service.CategoryService import CategoryService, Category
+from service.BalanceService import BalanceService, BalanceInput
 from service.MoveService import MoveService, Move
-
-
-class Element(BaseModel):
-    name: str
-    description: str
-    category_id: int
-
-
-class Category(BaseModel):
-    name: str
-    description: str
-
-
-class Balance(BaseModel):
-    amount: int
-    item: str
-    kind_element_id: int
-    purpose_element_id: int
-    place_element_id: int
-    date: str
 
 
 app = FastAPI()
@@ -113,13 +92,13 @@ def getBalanceById(id: int):
 
 
 @app.post("/api/v1/balance")
-def postBalance(balance: Balance):
+def postBalance(balance: BalanceInput):
     balanceService = BalanceService()
     return balanceService.postBalance(balance)
 
 
 @app.put("/api/v1/balance/{id}")
-def putBalance(id: int, balance: Balance):
+def putBalance(id: int, balance: BalanceInput):
     balanceService = BalanceService()
     return balanceService.putBalance(id, balance)
 

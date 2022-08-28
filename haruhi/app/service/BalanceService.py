@@ -1,5 +1,16 @@
+from pydantic import BaseModel
+
 from database.database import SessionLocal
 from database.model import Balance
+
+
+class BalanceInput(BaseModel):
+    amount: int
+    item: str
+    kind_element_id: int
+    purpose_element_id: int
+    place_element_id: int
+    date: str
 
 
 class BalanceService:
@@ -15,7 +26,7 @@ class BalanceService:
     def getBalanceById(self, id: int):
         return self.db.query(Balance).filter(Balance.id == id).one()
 
-    def postBalance(self, balanceValue):
+    def postBalance(self, balanceValue: BalanceInput):
         balance = Balance()
         balance.amount = balanceValue.amount
         balance.item = balanceValue.item
@@ -27,7 +38,7 @@ class BalanceService:
         self.db.add(balance)
         self.db.commit()
 
-    def putBalance(self, id: int, balanceValue):
+    def putBalance(self, id: int, balanceValue: BalanceInput):
         balance = self.db.query(Balance).filter(Balance.id == id).first()
         balance.amount = balanceValue.amount
         balance.item = balanceValue.item

@@ -1,5 +1,12 @@
+from pydantic import BaseModel
+
 from database.database import SessionLocal
 from database.model import KindCategory, PurposeCategory, PlaceCategory
+
+
+class Category(BaseModel):
+    name: str
+    description: str
 
 
 class CategoryService:
@@ -24,7 +31,7 @@ class CategoryService:
     def getCategory(self, id: int):
         return self.db.query(self.Category).filter(self.Category.id == id).one()
 
-    def postCategory(self, categoryValue):
+    def postCategory(self, categoryValue: Category):
         Category = self.Category()
         Category.name = categoryValue.name
         Category.description = categoryValue.description
@@ -32,7 +39,7 @@ class CategoryService:
         self.db.add(Category)
         self.db.commit()
 
-    def putCategory(self, id: int, categoryValue):
+    def putCategory(self, id: int, categoryValue: Category):
         Category = self.db.query(self.Category).filter(self.Category.id == id).first()
         Category.name = categoryValue.name
         Category.description = categoryValue.description

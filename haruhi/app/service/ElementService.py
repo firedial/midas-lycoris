@@ -1,9 +1,17 @@
+from pydantic import BaseModel
+
 from database.database import SessionLocal
 from database.model import KindElement, PurposeElement, PlaceElement
 
 KIND_ELEMENT_MOVE_ID = 1
 PURPOSE_ELEMENT_MOVE_ID = 1
 PLACE_ELEMENT_MOVE_ID = 1
+
+
+class Element(BaseModel):
+    name: str
+    description: str
+    category_id: int
 
 
 class ElementService:
@@ -28,7 +36,7 @@ class ElementService:
     def getElement(self, id: int):
         return self.db.query(self.Element).filter(self.Element.id == id).one()
 
-    def postElement(self, elementValue):
+    def postElement(self, elementValue: Element):
         element = self.Element()
         element.name = elementValue.name
         element.description = elementValue.description
@@ -37,7 +45,7 @@ class ElementService:
         self.db.add(element)
         self.db.commit()
 
-    def putElement(self, id: int, elementValue):
+    def putElement(self, id: int, elementValue: Element):
         element = self.db.query(self.Element).filter(self.Element.id == id).first()
         element.name = elementValue.name
         element.description = elementValue.description
