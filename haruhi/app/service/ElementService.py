@@ -4,16 +4,39 @@ from database.model import KindElement, PurposeElement, PlaceElement
 
 class ElementService:
     def __init__(self, elementName: str):
+        self.db = SessionLocal()
         match elementName:
             case "kind":
-                self.element = KindElement
+                self.Element = KindElement
             case "purpose":
-                self.element = PurposeElement
+                self.Element = PurposeElement
             case "place":
-                self.element = PlaceElement
+                self.Element = PlaceElement
             case _:
                 raise Exception("not support element name: " + elementName)
 
+    def __del__(self):
+        self.db.close()
+
     def getElements(self):
-        db = SessionLocal()
-        return db.query(self.element).all()
+        return self.db.query(self.Element).all()
+
+    def getElement(self, id: int):
+        return self.db.query(self.Element).filter(self.Element.id == id).one()
+
+    def postElement(self, elementValue):
+        element = self.Element()
+        element.name = elementValue.name
+        element.description = elementValue.description
+        element.category_id = elementValue.category_id
+
+        self.db.add(element)
+        self.db.commit()
+
+    def putElement(self, id: int, elementValue):
+        element = self.db.query(self.Element).filter(self.Element.id == id)
+        element.name = elementValue.name
+        element.description = elementValue.description
+        element.category_id = elementValue.category_id
+
+        self.db.commit()
