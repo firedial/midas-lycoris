@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
+from fastapi.exceptions import RequestValidationError
+from fastapi.responses import PlainTextResponse
 
 from static import index
 from service.ElementService import ElementService, Element
@@ -9,6 +11,16 @@ from service.MoveService import MoveService, Move
 
 
 app = FastAPI()
+
+
+@app.exception_handler(RequestValidationError)
+def validation_exception_handler(request, exc):
+    return PlainTextResponse(str(exc), status_code=400)
+
+
+@app.exception_handler(Exception)
+def exception_handler(request, exc):
+    return PlainTextResponse(str(exc), status_code=400)
 
 
 @app.get("/", response_class=HTMLResponse)
