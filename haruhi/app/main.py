@@ -5,6 +5,7 @@ from pydantic import BaseModel
 from static import index
 from service.ElementService import ElementService
 from service.CategoryService import CategoryService
+from service.BalanceService import BalanceService
 
 
 class Element(BaseModel):
@@ -16,6 +17,15 @@ class Element(BaseModel):
 class Category(BaseModel):
     name: str
     description: str
+
+
+class Balance(BaseModel):
+    amount: int
+    item: str
+    kind_element_id: int
+    purpose_element_id: int
+    place_element_id: int
+    date: str
 
 
 app = FastAPI()
@@ -86,3 +96,34 @@ def putCategory(name: str, id: int, category: Category):
 def deleteCategory(name: str, id: int):
     categoryService = CategoryService(name)
     return categoryService.deleteCategory(id)
+
+
+# balance
+@app.get("/api/v1/balance")
+def getBalances():
+    balanceService = BalanceService()
+    return balanceService.getBalances()
+
+
+@app.get("/api/v1/balance/{id}")
+def getBalanceById(id: int):
+    balanceService = BalanceService()
+    return balanceService.getBalanceById(id)
+
+
+@app.post("/api/v1/balance")
+def postBalance(balance: Balance):
+    balanceService = BalanceService()
+    return balanceService.postBalance(balance)
+
+
+@app.put("/api/v1/balance/{id}")
+def putBalance(id: int, balance: Balance):
+    balanceService = BalanceService()
+    return balanceService.putBalance(id, balance)
+
+
+@app.delete("/api/v1/balance/{id}")
+def deleteBalance(id: int):
+    balanceService = BalanceService()
+    return balanceService.deleteBalance(id)
