@@ -1,5 +1,14 @@
 version: '3.8'
 services:
+    konata:
+        build: ./konata
+        ports:
+         - "8484:80"
+        volumes:
+         - ./konata/conf.d/:/etc/nginx/conf.d
+        depends_on:
+         - misuzu
+         - nagisa
     misuzu:
         build: ./misuzu
         env_file: ./misuzu/.env
@@ -9,6 +18,13 @@ services:
          - ./misuzu/app:/app
         tty: true
         command: uvicorn main:app --reload --host "0.0.0.0" --port "80"
+    nagisa:
+        build: ./nagisa
+        ports:
+            - "3333:3000"
+        volumes:
+         - ./nagisa/app:/app
+        tty: true
     yui:
         build:
             context: ./yui
