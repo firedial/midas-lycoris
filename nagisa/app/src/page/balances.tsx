@@ -47,11 +47,11 @@ const BalanceCreate = () => {
   }
 
   return (
-    <div>
+    <>
       <h2>create</h2>
       <button onClick={() => postBalance({ id: 1, item: "hoge", date: "2022/9/2", amount: 335, kind_element_id: 2, purpose_element_id: 3, place_element_id: 3 })}>post</button>
 
-    </div>
+    </>
   )
 }
 
