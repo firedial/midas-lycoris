@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { BalanceTable } from '../component/table';
 
 type BalanceData = {
   id: number
@@ -32,14 +33,25 @@ const BalanceList = () => {
   return (
     <div>
       <h2>balance</h2>
-      {balances.map((balance) => { return (<p key={balance.id}>{balance.id}, {balance.item}</p>) })}
+      <BalanceTable balances={balances}></BalanceTable>
     </div>
   )
 }
 
 const BalanceCreate = () => {
+  const postBalance = (balance: BalanceData) => {
+    axios.post('/api/v1/balance', balance).then(
+    ).catch(() => {
+      console.log('error');
+    });
+  }
+
   return (
-    <h2>create</h2>
+    <div>
+      <h2>create</h2>
+      <button onClick={() => postBalance({ id: 1, item: "hoge", date: "2022/9/2", amount: 335, kind_element_id: 2, purpose_element_id: 3, place_element_id: 3 })}>post</button>
+
+    </div>
   )
 }
 
