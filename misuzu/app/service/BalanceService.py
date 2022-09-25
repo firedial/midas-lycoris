@@ -25,7 +25,7 @@ class BalanceService:
         return self.db.query(Balance).filter(Balance.kind_element_id != KIND_ELEMENT_MOVE_ID).all()
 
     def getBalanceById(self, id: int):
-        return self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id == KIND_ELEMENT_MOVE_ID).one()
+        return self.db.query(Balance).filter(Balance.id == id, Balance.kind_element_id != KIND_ELEMENT_MOVE_ID).one()
 
     def postBalance(self, balanceValue: BalanceInput):
         balance = Balance()
