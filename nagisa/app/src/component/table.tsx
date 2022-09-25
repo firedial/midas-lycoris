@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './table.module.css';
 
 type BalanceData = {
   id: number
@@ -12,7 +13,7 @@ type BalanceData = {
 
 const BalanceTable = (props: { balances: BalanceData[] }) => {
   return (
-    <table>
+    <table className={styles.tableStyle}>
       <tr>
         <th>Id</th>
         <th>Amount</th>
@@ -22,20 +23,22 @@ const BalanceTable = (props: { balances: BalanceData[] }) => {
         <th>PlaceElementId</th>
         <th>Date</th>
       </tr>
-      {props.balances.map((balance) => {
-        return (
-          <tr key={balance.id}>
-            <td>{balance.id}</td>
-            <td>{balance.amount}</td>
-            <td>{balance.item}</td>
-            <td>{balance.kind_element_id}</td>
-            <td>{balance.purpose_element_id}</td>
-            <td>{balance.place_element_id}</td>
-            <td>{balance.date}</td>
-          </tr>
-        )
-      })}
-    </table>
+      {
+        props.balances.map((balance) => {
+          return (
+            <tr key={balance.id}>
+              <td>{balance.id}</td>
+              <td>{balance.amount}</td>
+              <td>{balance.item}</td>
+              <td>{balance.kind_element_id}</td>
+              <td>{balance.purpose_element_id}</td>
+              <td>{balance.place_element_id}</td>
+              <td>{balance.date}</td>
+            </tr>
+          )
+        })
+      }
+    </table >
   )
 }
 

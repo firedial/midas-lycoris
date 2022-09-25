@@ -1,0 +1,29 @@
+table.tableStyle {
+    width: 96%;
+    padding: 0px;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-collapse: collapse;
+    background-color: #FDF0B6;
+}
+
+table.tableStyle th {
+    border-bottom: 1px solid;
+}
+
+table.tableStyle td {
+    border-bottom: 1px solid;
+    text-align: center;
+}
+
+table.tableStyle tr:nth-child(even) {
+    background-color: #f7e4b1;
+}
+
+table.tableStyle tr:hover {
+    background-color: #ecdd51;
+}
+
+table.tableStyle tr:first-child {
+    background-color: white;
+}
