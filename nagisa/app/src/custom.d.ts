@@ -9,7 +9,7 @@ declare module '*.svg' {
   export default src;
 }
 
-declare module '*.css' {
+declare module '*.scss' {
   const content: Record<string, string>;
   export default content;
 }
