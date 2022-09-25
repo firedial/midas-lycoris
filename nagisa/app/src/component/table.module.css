@@ -27,3 +27,8 @@ table.tableStyle tr:hover {
 table.tableStyle tr:first-child {
     background-color: white;
 }
+
+table.tableStyle a {
+    text-decoration: none;
+    color: black;
+}

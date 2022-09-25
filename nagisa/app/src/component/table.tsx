@@ -27,7 +27,7 @@ const BalanceTable = (props: { balances: BalanceData[] }) => {
         props.balances.map((balance) => {
           return (
             <tr key={balance.id}>
-              <td>{balance.id}</td>
+              <td><a href={'/balances/' + balance.id}>{balance.id}</a></td>
               <td>{balance.amount}</td>
               <td>{balance.item}</td>
               <td>{balance.kind_element_id}</td>

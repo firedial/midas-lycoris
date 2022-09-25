@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { BalanceTable } from '../component/table';
@@ -50,9 +51,36 @@ const BalanceCreate = () => {
     <>
       <h2>create</h2>
       <button onClick={() => postBalance({ id: 1, item: "hoge", date: "2022/9/2", amount: 335, kind_element_id: 2, purpose_element_id: 3, place_element_id: 3 })}>post</button>
-
     </>
   )
 }
 
-export { BalanceList, BalanceCreate };
+const BalanceEdit = () => {
+  const { id } = useParams<{ id: string }>();
+  const [balance, setBalance] = useState<BalanceData>();
+
+  const getBalance = useCallback(() => {
+    axios.get('/api/v1/balance/' + id).then(
+      response => {
+        setBalance(response.data);
+      }
+    ).catch(() => {
+      console.log('error');
+    });
+  }, [id]);
+
+  useEffect(() => {
+    getBalance();
+  }, [getBalance])
+
+  return (
+
+    <>
+      <h2>edit</h2>
+      <p>{balance && balance.item}</p>
+      <p>{balance && balance.amount}</p>
+    </>
+  )
+}
+
+export { BalanceList, BalanceCreate, BalanceEdit };
