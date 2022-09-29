@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { BalanceTable } from '../component/table';
+import { BalanceDetail } from '../component/balanceDetail';
 
 type BalanceData = {
   id: number
@@ -50,7 +51,7 @@ const BalanceCreate = () => {
   return (
     <>
       <h2>create</h2>
-      <button onClick={() => postBalance({ id: 1, item: "hoge", date: "2022/9/2", amount: 335, kind_element_id: 2, purpose_element_id: 3, place_element_id: 3 })}>post</button>
+      <BalanceDetail />
     </>
   )
 }
@@ -74,11 +75,9 @@ const BalanceEdit = () => {
   }, [getBalance])
 
   return (
-
     <>
       <h2>edit</h2>
-      <p>{balance && balance.item}</p>
-      <p>{balance && balance.amount}</p>
+      <BalanceDetail balance={balance} />
     </>
   )
 }
