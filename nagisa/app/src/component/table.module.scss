@@ -23,12 +23,16 @@ table.tableStyle {
         background-color: #ecdd51;
     }
 
-    tr:first-child {
+    .trThStyle {
         background-color: white;
     }
 
     a {
         text-decoration: none;
         color: black;
+    }
+
+    .lastTrStyle {
+        background-color: #cccccc;
     }
 }

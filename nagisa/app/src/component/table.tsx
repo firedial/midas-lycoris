@@ -15,7 +15,7 @@ const BalanceTable = (props: { balances: BalanceData[] }) => {
   return (
     <table className={styles.tableStyle}>
       <tbody>
-        <tr>
+        <tr className={styles.trThStyle}>
           <th>Id</th>
           <th>Amount</th>
           <th>Item</th>
@@ -39,6 +39,15 @@ const BalanceTable = (props: { balances: BalanceData[] }) => {
             )
           })
         }
+        <tr className={styles.lastTrStyle} key='new'>
+          <td><a href='/balances/create'>+</a></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
       </tbody>
     </table >
   )
