@@ -10,7 +10,7 @@
 
 ```
 cp ./yui/.env.example ./yui/.env
-cp ./haruhi/.env.example ./haruhi/.env
+cp ./misuzu/.env.example ./misuzu/.env
 cp ./rikka/.env.example ./rikka/.env
 ```
 
