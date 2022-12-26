@@ -34,6 +34,17 @@ services:
         hostname: yui
         volumes:
          - db:/var/lib/mysql
+    eru:
+        build:
+            context: ./eru
+            dockerfile: Dockerfile
+        restart: always
+        environment:
+            - MB_DB_FILE=/metabase-data/metabase.db
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./eru/metabase:/metabase-data
     rikka:
         build: ./rikka
         restart: always
